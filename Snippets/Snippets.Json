@@ -1,0 +1,5 @@
+{
+    "selexp":  {
+                   "Snippet":  "@{\n   Name = \"$1\"\n   Expression = {}\n}"
+               }
+}
