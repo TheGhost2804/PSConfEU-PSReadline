@@ -1,0 +1,8 @@
+{
+  "Commands": [
+    "Set-PSReadLineOption -HistorySearchCursorMovesToEnd",
+    "Set-PSReadLineKeyHandler -Key UpArrow -Function HistorySearchBackward",
+    "Set-PSReadLineKeyHandler -Key DownArrow -Function HistorySearchForward"
+  ],
+  "Header": "History"
+}
