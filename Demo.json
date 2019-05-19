@@ -1,8 +1,22 @@
-{
+[
+  {
   "Commands": [
     "Set-PSReadLineOption -HistorySearchCursorMovesToEnd",
     "Set-PSReadLineKeyHandler -Key UpArrow -Function HistorySearchBackward",
-    "Set-PSReadLineKeyHandler -Key DownArrow -Function HistorySearchForward"
+    "Set-PSReadLineKeyHandler -Key DownArrow -Function HistorySearchForward",
+    "# Ctrl+r to search backwards in history, Ctrl+s to go forward again",
+    ""
   ],
-  "Header": "History"
-}
+  "Header": "Part 1: History"
+},
+  {
+  "Commands": [
+    "Set-PSReadlineOption -EditMode Emacs",
+    "# Kill = Cut / Yank = Paste",
+    "Get-PSReadLineKeyHandler | Where-Object {$_.Function -match \"(kill|yank)\"}",
+    "# the quick brown fox jumped over the lazy dog"
+  ],
+  "Header": "Part 2. Editing"
+},
+
+]

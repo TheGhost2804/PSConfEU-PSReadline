@@ -56,3 +56,5 @@ Set-PSReadlineKeyHandler -Key Ctrl+J -Description "Inserts the snippet from the 
         }
     }
 }
+
+ls
