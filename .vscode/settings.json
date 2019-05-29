@@ -1,0 +1,4 @@
+{
+    "powershell.scriptAnalysis.settingsPath": ".\\Rules\\CustomRulesSettings.psd1",
+    "powershell.developer.editorServicesLogLevel": "Diagnostic"
+}

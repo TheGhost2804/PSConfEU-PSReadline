@@ -1,5 +1,3 @@
-Function prompt {"> "}
-
 Set-PSreadlineKeyHandler -Chord 'Ctrl+x,Ctrl+e' -ScriptBlock {
     $line = $null
     $cursor = $null
