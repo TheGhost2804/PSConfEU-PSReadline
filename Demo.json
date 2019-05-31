@@ -5,60 +5,53 @@
       "help about_psreadline",
       "Install-Module PSConsoleTheme -AllowPrerelease -Force",
       "Get-ConsoleTheme -ListAvailable",
-
     ],
     "Header": "Part 1. Basics"
   },
   {
-  "Commands": [
-    "Set-PSReadLineOption -HistorySearchCursorMovesToEnd",
-    "Set-PSReadLineKeyHandler -Key UpArrow -Function HistorySearchBackward",
-    "Set-PSReadLineKeyHandler -Key DownArrow -Function HistorySearchForward",
-    "# Ctrl+r to search backwards in history, Ctrl+s to go forward again",
-    "$url = \"http://powershell.fun",
-    "$res = irm $url",
-    "# PSReadline History is just a text file",
-    "notepad (Get-PSReadLineOption | % historysavepath)",
-    "$secret = \"supersecret\" | ConvertTo-SecureString -AsPlainText -Force",
-    "Set-PSReadLineOption -AddToHistoryHandler {\n    param($line) \n    $line -notmatch \"AsPlainText\" \n}",
-    "Write-Host \"PSConfEU is great!\"",
-    "$secret = \"supersecret\" | ConvertTo-SecureString -AsPlainText -Force"
-  ],
-  "Header": "Part 2. History"
-},
+    "Commands": [
+      "Set-PSReadLineOption -HistorySearchCursorMovesToEnd",
+      "Set-PSReadLineKeyHandler -Key UpArrow -Function HistorySearchBackward",
+      "Set-PSReadLineKeyHandler -Key DownArrow -Function HistorySearchForward",
+      "# Ctrl+r to search backwards in history, Ctrl+s to go forward again",
+      "$url = \"http://powershell.fun",
+      "$res = irm $url",
+      "# PSReadline History is just a text file",
+      "notepad (Get-PSReadLineOption | % historysavepath)",
+      "$secret = \"supersecret\" | ConvertTo-SecureString -AsPlainText -Force",
+      "Set-PSReadLineOption -AddToHistoryHandler {\n    param($line) \n    $line -notmatch \"AsPlainText\" \n}",
+      "Write-Host \"PSConfEU is great!\"",
+      "$secret = \"supersecret\" | ConvertTo-SecureString -AsPlainText -Force"
+    ],
+    "Header": "Part 2. History"
+  },
   {
-  "Commands": [
-    "Set-PSReadlineOption -EditMode Emacs",
-    "# Kill = Cut / Yank = Paste",
-    "Get-PSReadLineKeyHandler | Where-Object {$_.Function -match \"(kill|yank)\"}",
-    "# Digit arguments provide numeric arguments to the next invoked key handler",
-    ""
-
-  ],
-  "Header": "Part 3. Editing"
-},
+    "Commands": [
+      "Set-PSReadlineOption -EditMode Emacs",
+      "# Kill = Cut / Yank = Paste",
+      "Get-PSReadLineKeyHandler | Where-Object {$_.Function -match \"(kill|yank)\"}",
+      "# Digit arguments provide numeric arguments to the next invoked key handler",
+      ""
+    ],
+    "Header": "Part 3. Editing"
+  },
   {
-  "Commands": [
-    "# Windows default completer behaviour: \nSet-PSReadlineKeyHandler -Key Tab -Function TabCompleteNext",
-    "Set-PSReadlineKeyHandler -Key Tab -Function TabCompleteNext",
-    "",
-    "Get-PSReadLineKeyHandler | Where-Object {$_.Function -match \"(kill|yank)\"}",
-    ""
-  ],
-  "Header": "Part 4. Completion"
-},
-{
-  "Commands": [
-    "Set-PSReadlineOption -EditMode Emacs",
-    "# Kill = Cut / Yank = Paste",
-    "Get-PSReadLineKeyHandler | Where-Object {$_.Function -match \"(kill|yank)\"}",
-    ""
-  ],
-  "Header": "Part 5. Custom Key Bindings"
-}
-
-
-
-
-
+    "Commands": [
+      "# Windows default completer behaviour: \nSet-PSReadlineKeyHandler -Key Tab -Function TabCompleteNext",
+      "Set-PSReadlineKeyHandler -Key Tab -Function TabCompleteNext",
+      "",
+      "Get-PSReadLineKeyHandler | Where-Object {$_.Function -match \"(kill|yank)\"}",
+      ""
+    ],
+    "Header": "Part 4. Completion"
+  },
+  {
+    "Commands": [
+      "Set-PSReadlineOption -EditMode Emacs",
+      "# Kill = Cut / Yank = Paste",
+      "Get-PSReadLineKeyHandler | Where-Object {$_.Function -match \"(kill|yank)\"}",
+      ""
+    ],
+    "Header": "Part 5. Custom Key Bindings"
+  }
 ]

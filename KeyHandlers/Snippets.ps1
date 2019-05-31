@@ -32,8 +32,8 @@ Set-PSReadlineKeyHandler -Key Ctrl+J -Description "Inserts the snippet from the 
             $tokenToChange = $token
             break
         }
-
     }
+
     if ($tokenToChange -ne $null) {
         $extent = $tokenToChange.Extent
         $tokenText = $extent.Text
@@ -56,5 +56,3 @@ Set-PSReadlineKeyHandler -Key Ctrl+J -Description "Inserts the snippet from the 
         }
     }
 }
-
-ls

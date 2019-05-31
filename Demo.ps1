@@ -13,11 +13,6 @@ Set-PSReadLineKeyHandler -Chord 'Ctrl+x,Ctrl+d' -ScriptBlock {
         [Microsoft.PowerShell.PSConsoleReadLine]::ClearScreen()
         [Microsoft.PowerShell.PSConsoleReadLine]::ClearHistory()
 
-
-        # foreach ($line in $selectedDemo.Commands) {
-        #     [Microsoft.PowerShell.PSConsoleReadLine]::AddToHistory($line)
-        # }
-
         Write-Host "`n"
         figlet.exe -w $windowSize -c "$($selectedDemo.Header)" | Out-Host
 

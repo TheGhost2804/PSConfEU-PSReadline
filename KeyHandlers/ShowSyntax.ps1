@@ -1,6 +1,7 @@
 using namespace System.Management.Automation
 using namespace System.Management.Automation.Language
 
+. $PSScriptRoot\..\Find-Ast.ps1
 Set-PSReadlineKeyHandler -Key Ctrl+i -ScriptBlock {
     $line = $null
     $cursor = $null
