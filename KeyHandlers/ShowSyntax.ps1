@@ -12,43 +12,44 @@ Set-PSReadlineKeyHandler -Key Ctrl+i -ScriptBlock {
     $parseErrors = $null
     [Microsoft.PowerShell.PSConsoleReadLine]::GetBufferState([ref]$ast, [ref]$tokens, [ref]$parseErrors, [ref]$null)
 
-    foreach ($token in $tokens) {
-        $extent = $token.Extent
-        if ($extent.StartOffset -le $cursor -and $extent.EndOffset -ge $cursor) {
-            $currentToken = $token
-            break
-        }
+    $nearestAst = Find-Ast -Ast $ast -CursorOffset $cursor
+    $commandOrExpression = Find-Ast -Ast $nearestAst -Ancestor -First -FilterScript {
+        $_ -is [InvokeMemberExpressionAst] -or
+        $_ -is [CommandAst]
     }
 
-    if ($currentToken.TokenFlags -band [TokenFlags]::CommandName) {
-        $cmdDefinition = Get-Command $currentToken.Text
-
-        $commandSyntax = switch ($cmdDefinition.CommandType) {
-            Alias {  Get-Command $cmdDefinition.ResolvedCommand -Syntax }
-            Function { Get-Command $cmdDefinition -Syntax }
-            Cmdlet { Get-Command $cmdDefinition -Syntax }
-            Default {}
-        }
+    if ($commandOrExpression -is [InvokeMemberExpressionAst]) {
+        $cursorPosition = $commandOrExpression.Member.Extent.EndOffset
     }
 
-    if ($commandSyntax) {
+    if ($commandOrExpression -is [CommandAst]) {
+        $cursorPosition = $commandOrExpression.CommandElements[0].Extent.EndOffset
+    }
 
-        $buffer = " `n" + $commandSyntax + " `n"
+    if ($cursorPosition) {
+        $completionMatches = ([System.Management.Automation.CommandCompletion]::CompleteInput(
+                $line,
+                $cursorPosition, $null
+            )).CompletionMatches |
+            Select-Object -ExpandProperty ToolTip | Out-String
+    }
 
+    if ($completionMatches) {
+        $buffer = " `n" + $completionMatches + " `n"
         $bufferHeight = 0
 
-        foreach($bufferLine in $buffer.Split("`n")) {
+        foreach ($bufferLine in $buffer.Split("`n")) {
             $bufferHeight += [Math]::Ceiling($bufferLine.Length / $host.ui.RawUI.BufferSize.Width)
         }
 
-        $currentCursorPosition =$Host.Ui.RawUI.CursorPosition
+        $currentCursorPosition = $Host.Ui.RawUI.CursorPosition
         $newYPosition = $currentCursorPosition.Y + $bufferHeight
         $buffer | Out-Host
 
-        [Microsoft.PowerShell.PSConsoleReadLine]::InvokePrompt(
-            $null,
-            [int]$newYPosition
-        )
+    [Microsoft.PowerShell.PSConsoleReadLine]::InvokePrompt(
+        $null,
+        [int]$newYPosition
+    )
 
     }
 }
