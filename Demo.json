@@ -3,8 +3,10 @@
     "Commands": [
       "code (Join-Path $((get-module psreadline).ModuleBase) \"SamplePSReadLineProfile.ps1\")",
       "help about_psreadline",
+      "Get-PSReadlineOption",
       "Install-Module PSConsoleTheme -AllowPrerelease -Force",
       "Get-ConsoleTheme -ListAvailable",
+      "# Alt+? -  WhatIsKey\n# Ctrl+Alt+? - ShowKeyBindings"
     ],
     "Header": "Part 1. Basics"
   },
@@ -13,11 +15,12 @@
       "Set-PSReadLineOption -HistorySearchCursorMovesToEnd",
       "Set-PSReadLineKeyHandler -Key UpArrow -Function HistorySearchBackward",
       "Set-PSReadLineKeyHandler -Key DownArrow -Function HistorySearchForward",
-      "# Ctrl+r to search backwards in history, Ctrl+s to go forward again",
-      "$url = \"http://powershell.fun",
+      "$url = \"http://powershell.fun\"",
       "$res = irm $url",
+      "# Ctrl+r to search backwards in history, Ctrl+s to go forward again",
       "# PSReadline History is just a text file",
       "notepad (Get-PSReadLineOption | % historysavepath)",
+      "start-process pwsh -ArgumentList \"-noprofile\",\"-command {get-content $(Get-PSReadLineOption | % historysavepath) -wait}\"",
       "$secret = \"supersecret\" | ConvertTo-SecureString -AsPlainText -Force",
       "Set-PSReadLineOption -AddToHistoryHandler {\n    param($line) \n    $line -notmatch \"AsPlainText\" \n}",
       "Write-Host \"PSConfEU is great!\"",
@@ -30,27 +33,36 @@
       "Set-PSReadlineOption -EditMode Emacs",
       "# Kill = Cut / Yank = Paste",
       "Get-PSReadLineKeyHandler | Where-Object {$_.Function -match \"(kill|yank)\"}",
-      "# Digit arguments provide numeric arguments to the next invoked key handler",
-      ""
-    ],
+      "# Digit arguments provide numeric arguments to the next invoked key handler"
+     ],
     "Header": "Part 3. Editing"
   },
   {
     "Commands": [
       "# Windows default completer behaviour: \nSet-PSReadlineKeyHandler -Key Tab -Function TabCompleteNext",
-      "Set-PSReadlineKeyHandler -Key Tab -Function TabCompleteNext",
-      "",
-      "Get-PSReadLineKeyHandler | Where-Object {$_.Function -match \"(kill|yank)\"}",
-      ""
+      "# Emacs default completer behaviour: \nSet-PSReadlineKeyHandler -Key Tab -Function Complete",
+      "# Menu complete (Ctrl + Space) is really handy, especially tooltips! Works for commands, parameters and .NET types"
     ],
     "Header": "Part 4. Completion"
   },
   {
     "Commands": [
-      "Set-PSReadlineOption -EditMode Emacs",
-      "# Kill = Cut / Yank = Paste",
-      "Get-PSReadLineKeyHandler | Where-Object {$_.Function -match \"(kill|yank)\"}",
-      ""
+      "[Microsoft.PowerShell.PSConsoleReadLine] | Get-Member -static",
+      "# Attempt to execute the current line\n#[Microsoft.PowerShell.PSConsoleReadLine]::AcceptLine()",
+      "# Get the contents of the current line\n#[Microsoft.PowerShell.PSConsoleReadLine]::GetBufferState()",
+      "# Get the start position and length of the currently selected text\n#[Microsoft.PowerShell.PSConsoleReadLine]::GetSelectionState()",
+      "# Re-run the prompt function. Arg takes int value of which row to draw the new prompt.\n#[Microsoft.PowerShell.PSConsoleReadLine]::InvokePrompt()",
+      "# Replace text in buffer at specified position with text\n#[Microsoft.PowerShell.PSConsoleReadLine]::Replace()",
+      "# Clear the line \n#[Microsoft.PowerShell.PSConsoleReadLine]::RevertLine()",
+      "# Move cursor to specified offset.\n#[Microsoft.PowerShell.PSConsoleReadLine]::SetCursorPosition()",
+      "ls .\\KeyHandlers\\*.ps1 | % {. $_.FullName}",
+      "code-insiders .\\KeyHandlers\\01-OpenCurrentDirInCode.ps1",
+      "code-insiders .\\KeyHandlers\\02-CodeFormatter.ps1",
+      "code-insiders .\\KeyHandlers\\03-Macros.ps1",
+      "code-insiders .\\KeyHandlers\\04-OpenLineInCode.ps1",
+      "code-insiders .\\KeyHandlers\\05-ResolvePath.ps1",
+      "code-insiders .\\KeyHandlers\\06-ShowSyntax.ps1",
+      "code-insiders .\\KeyHandlers\\07-Snippets.ps1"
     ],
     "Header": "Part 5. Custom Key Bindings"
   }

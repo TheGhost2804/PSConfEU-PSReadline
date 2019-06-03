@@ -3,6 +3,6 @@
                    "Snippet":  "@{\n   Name = \"$1\"\n   Expression = {}\n}"
                },
     "pscustobj": {
-                    "Snippet": "[PSCustomObject]@{\n$1=\n}"
+                    "Snippet": "[PSCustomObject]@{\n   $1=\n}"
     }
 }
